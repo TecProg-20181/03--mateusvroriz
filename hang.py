@@ -1,7 +1,17 @@
 import random
 import string
-
+from sets import Set
 WORDLIST_FILENAME = "palavras.txt"
+
+def numberDiff(word,numberoftrys):
+     guessinger = Set(list(word))
+     if len(guessinger) > numberoftrys:
+         loadWords()
+     print "  ", len(guessinger), " different letters."
+
+#def lengthisbiggerthantrys(numberofdiff(word)):
+
+
 
 def loadWords():
     """
@@ -58,7 +68,7 @@ def hangman(secretWord):
     print 'Welcome to the game, Hangam!'
     print 'I am thinking of a word that is', len(secretWord), ' letters long.'
     print '-------------'
-
+    numberDiff(secretWord,guesses)
     while  isWordGuessed(secretWord, lettersGuessed) == False and guesses >0:
         print 'You have ', guesses, 'guesses left.'
 
