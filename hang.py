@@ -5,9 +5,11 @@ WORDLIST_FILENAME = "palavras.txt"
 
 def numberDiff(word,numberoftrys):
      guessinger = Set(list(word))
-     if len(guessinger) > numberoftrys:
-         loadWords()
+     while len(guessinger) > 8:
+         word = loadWords()
+         guessinger = Set(list(word))
      print "  ", len(guessinger), " different letters."
+
 
 #def lengthisbiggerthantrys(numberofdiff(word)):
 
@@ -24,7 +26,8 @@ def loadWords():
     # line: string
     line = inFile.readline()
     # wordlist: list of strings
-    wordlist = string.split(line)
+    #wordlist = string.split(line)
+    wordlist = ['sderfdpmnjkhtfde','asdfrg', 'adasdfgfgjukbrv rg5a', ' wq31casdasdsf3123123']
     print "  ", len(wordlist), "words loaded."
     return random.choice(wordlist)
 
