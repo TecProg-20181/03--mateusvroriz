@@ -3,16 +3,19 @@ import string
 from sets import Set
 WORDLIST_FILENAME = "palavras.txt"
 
-def numberDiff(word,numberoftrys):
-     guessinger = Set(list(word))
-     while len(guessinger) > 8:
+def numberDiff(numberoftrys):
+     word = loadWords()
+
+     diffLetters = Set(list(word))
+     while len(diffLetters) > numberoftrys:
          word = loadWords()
-         guessinger = Set(list(word))
-     print "  ", len(guessinger), " different letters."
+         diffLetters = Set(list(word))
+     if len(diffLetters) < numberoftrys:
+        print "Loading word list from file..."
+        print "  ", len(word), "words loaded."
+        print "  ", len(diffLetters), " different letters."
 
-
-#def lengthisbiggerthantrys(numberofdiff(word)):
-
+     return word
 
 
 def loadWords():
@@ -20,26 +23,20 @@ def loadWords():
     Depending on the size of the word list, this function may
     take a while to finish.
     """
-    print "Loading word list from file..."
     # inFile: file
     inFile = open(WORDLIST_FILENAME, 'r', 0)
     # line: string
     line = inFile.readline()
     # wordlist: list of strings
     #wordlist = string.split(line)
-    wordlist = ['sderfdpmnjkhtfde','asdfrg', 'adasdfgfgjukbrv rg5a', ' wq31casdasdsf3123123']
+    wordlist = ['sderfdpmnjkhtfde','asxdfrg', 'adasdfgfgjukbrv', 'wqcasdasdsfghdfbcaz', 'huadhash']
+    word = random.choice(wordlist)
     print "  ", len(wordlist), "words loaded."
-    return random.choice(wordlist)
+    return word
 
 
 def isWordGuessed(secretWord, lettersGuessed):
     secretLetters = []
-
-#    for letter in secretWord:
-#        if letter in secretLetters:
-#            secretLetters.append(letter)
-#        else:
-#            pass
 
     for letter in secretWord:
         if letter in lettersGuessed:
@@ -50,28 +47,34 @@ def isWordGuessed(secretWord, lettersGuessed):
     return True
 
 def getGuessedWord():
-
      guessed = ''
-
-
      return guessed
 
 def getAvailableLetters():
     import string
-    # 'abcdefghijklmnopqrstuvwxyz'
     available = string.ascii_lowercase
-
-
     return available
 
-def hangman(secretWord):
+def numberguesses():
+    remaininguesses = 8
+    return remaininguesses
 
-    guesses = 8
+def replaceWords(lettersGuessed):
+    guessed = getGuessedWord()
+    for letter in secretWord:
+        if letter in lettersGuessed:
+            guessed += letter
+        else:
+            guessed += '_ '
+    return guessed;
+
+
+def hangman(secretWord):
+    guesses = numberguesses()
     lettersGuessed = []
     print 'Welcome to the game, Hangam!'
     print 'I am thinking of a word that is', len(secretWord), ' letters long.'
     print '-------------'
-    numberDiff(secretWord,guesses)
     while  isWordGuessed(secretWord, lettersGuessed) == False and guesses >0:
         print 'You have ', guesses, 'guesses left.'
 
@@ -84,37 +87,24 @@ def hangman(secretWord):
         letter = raw_input('Please guess a letter: ')
         if letter in lettersGuessed:
 
-            guessed = getGuessedWord()
-            for letter in secretWord:
-                if letter in lettersGuessed:
-                    guessed += letter
-                else:
-                    guessed += '_ '
+            coiso = replaceWords(lettersGuessed)
 
-            print 'Oops! You have already guessed that letter: ', guessed
+            print 'Oops! You have already guessed that letter: ', coiso
         elif letter in secretWord:
             lettersGuessed.append(letter)
 
-            guessed = getGuessedWord()
-            for letter in secretWord:
-                if letter in lettersGuessed:
-                    guessed += letter
-                else:
-                    guessed += '_ '
+            coiso = replaceWords(lettersGuessed)
 
-            print 'Good Guess: ', guessed
+            print 'Good Guess: ', coiso
         else:
             guesses -=1
             lettersGuessed.append(letter)
 
-            guessed = getGuessedWord()
-            for letter in secretWord:
-                if letter in lettersGuessed:
-                    guessed += letter
-                else:
-                    guessed += '_ '
 
-            print 'Oops! That letter is not in my word: ',  guessed
+            coiso = replaceWords(lettersGuessed)
+
+
+            print 'Oops! That letter is not in my word: ',  coiso
         print '------------'
 
     else:
@@ -124,7 +114,5 @@ def hangman(secretWord):
             print 'Sorry, you ran out of guesses. The word was ', secretWord, '.'
 
 
-
-
-secretWord = loadWords().lower()
+secretWord = numberDiff(numberguesses())
 hangman(secretWord)
