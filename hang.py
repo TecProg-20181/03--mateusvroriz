@@ -87,24 +87,24 @@ def hangman(secretWord):
         letter = raw_input('Please guess a letter: ')
         if letter in lettersGuessed:
 
-            coiso = replaceWords(lettersGuessed)
+            wordReplacer = replaceWords(lettersGuessed)
 
-            print 'Oops! You have already guessed that letter: ', coiso
+            print 'Oops! You have already guessed that letter: ', wordReplacer
         elif letter in secretWord:
             lettersGuessed.append(letter)
 
-            coiso = replaceWords(lettersGuessed)
+            wordReplacer = replaceWords(lettersGuessed)
 
-            print 'Good Guess: ', coiso
+            print 'Good Guess: ', wordReplacer
         else:
             guesses -=1
             lettersGuessed.append(letter)
 
 
-            coiso = replaceWords(lettersGuessed)
+            wordReplacer = replaceWords(lettersGuessed)
 
 
-            print 'Oops! That letter is not in my word: ',  coiso
+            print 'Oops! That letter is not in my word: ',  wordReplacer
         print '------------'
 
     else:
