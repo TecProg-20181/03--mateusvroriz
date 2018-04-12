@@ -28,8 +28,7 @@ def loadWords():
     # line: string
     line = inFile.readline()
     # wordlist: list of strings
-    #wordlist = string.split(line)
-    wordlist = ['sderfdpmnjkhtfde','asxdfrg', 'adasdfgfgjukbrv', 'wqcasdasdsfghdfbcaz', 'huadhash']
+    wordlist = string.split(line)
     word = random.choice(wordlist)
     print "  ", len(wordlist), "words loaded."
     return word
@@ -71,31 +70,6 @@ def availableLetterReplacer(available, lettersGuessed):
             available = available.replace(letter, '')
             return available
 
-def wordPrinter(available,lettersGuessed, guesses):
-    print 'Available letters', available
-    letter = raw_input('Please guess a letter: ')
-    if letter in lettersGuessed:
-
-        wordReplacer = lettersCurrentWord(lettersGuessed)
-
-        print 'Oops! You have already guessed that letter: ', wordReplacer
-    elif letter in secretWord:
-        lettersGuessed.append(letter)
-
-        wordReplacer = lettersCurrentWord(lettersGuessed)
-
-        print 'Good Guess: ', wordReplacer
-    else:
-        guesses -=1
-        lettersGuessed.append(letter)
-
-        wordReplacer = lettersCurrentWord(lettersGuessed)
-
-
-        print 'Oops! That letter is not in my word: ',  wordReplacer
-    print '------------'
-    return lettersGuessed
-
 def hangman(secretWord):
     guesses = numberOfGuesses()
     lettersGuessed = []
@@ -108,7 +82,29 @@ def hangman(secretWord):
         available = getAvailableLetters()
         availableLetterReplacer(available, lettersGuessed)
 
-        wordPrinter(available,lettersGuessed, guesses)
+        print 'Available letters', available
+        letter = raw_input('Please guess a letter: ')
+        if letter in lettersGuessed:
+
+            wordReplacer = lettersCurrentWord(lettersGuessed)
+
+            print 'Oops! You have already guessed that letter: ', wordReplacer
+        elif letter in secretWord:
+            lettersGuessed.append(letter)
+
+            wordReplacer = lettersCurrentWord(lettersGuessed)
+
+            print 'Good Guess: ', wordReplacer
+        else:
+            guesses -=1
+            lettersGuessed.append(letter)
+
+
+            wordReplacer = lettersCurrentWord(lettersGuessed)
+
+
+            print 'Oops! That letter is not in my word: ',  wordReplacer
+        print '------------'
 
     else:
         if isWordGuessed(secretWord, lettersGuessed) == True:
