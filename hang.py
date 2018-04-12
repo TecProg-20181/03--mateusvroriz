@@ -46,9 +46,6 @@ def isWordGuessed(secretWord, lettersGuessed):
 
     return True
 
-def getGuessedWord():
-     guessed = ''
-     return guessed
 
 def getAvailableLetters():
     import string
@@ -60,7 +57,7 @@ def numberguesses():
     return remaininguesses
 
 def replaceWords(lettersGuessed):
-    guessed = getGuessedWord()
+    guessed = ''
     for letter in secretWord:
         if letter in lettersGuessed:
             guessed += letter
