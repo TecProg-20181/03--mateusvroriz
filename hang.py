@@ -52,11 +52,11 @@ def getAvailableLetters():
     available = string.ascii_lowercase
     return available
 
-def numberguesses():
+def numberOfGuesses():
     remaininguesses = 8
     return remaininguesses
 
-def replaceWords(lettersGuessed):
+def lettersCurrentWord(lettersGuessed):
     guessed = ''
     for letter in secretWord:
         if letter in lettersGuessed:
@@ -65,9 +65,14 @@ def replaceWords(lettersGuessed):
             guessed += '_ '
     return guessed;
 
+def availableLetterReplacer(available, lettersGuessed):
+    for letter in available:
+        if letter in lettersGuessed:
+            available = available.replace(letter, '')
+            return available
 
 def hangman(secretWord):
-    guesses = numberguesses()
+    guesses = numberOfGuesses()
     lettersGuessed = []
     print 'Welcome to the game, Hangam!'
     print 'I am thinking of a word that is', len(secretWord), ' letters long.'
@@ -76,29 +81,26 @@ def hangman(secretWord):
         print 'You have ', guesses, 'guesses left.'
 
         available = getAvailableLetters()
-        for letter in available:
-            if letter in lettersGuessed:
-                available = available.replace(letter, '')
+        availableLetterReplacer(available, lettersGuessed)
 
         print 'Available letters', available
         letter = raw_input('Please guess a letter: ')
         if letter in lettersGuessed:
 
-            wordReplacer = replaceWords(lettersGuessed)
+            wordReplacer = lettersCurrentWord(lettersGuessed)
 
             print 'Oops! You have already guessed that letter: ', wordReplacer
         elif letter in secretWord:
             lettersGuessed.append(letter)
 
-            wordReplacer = replaceWords(lettersGuessed)
+            wordReplacer = lettersCurrentWord(lettersGuessed)
 
             print 'Good Guess: ', wordReplacer
         else:
             guesses -=1
             lettersGuessed.append(letter)
 
-
-            wordReplacer = replaceWords(lettersGuessed)
+            wordReplacer = lettersCurrentWord(lettersGuessed)
 
 
             print 'Oops! That letter is not in my word: ',  wordReplacer
@@ -111,5 +113,5 @@ def hangman(secretWord):
             print 'Sorry, you ran out of guesses. The word was ', secretWord, '.'
 
 
-secretWord = numberDiff(numberguesses())
+secretWord = numberDiff(numberOfGuesses())
 hangman(secretWord)
