@@ -18,6 +18,13 @@ def numberDiff(numberoftrys):
      return word
 
 
+def isalphanumeric(letter):
+    if(len(letter) == 1):
+        if(letter.isalpha()):
+            return True
+    return False
+
+
 def loadWords():
     """
     Depending on the size of the word list, this function may
@@ -70,20 +77,27 @@ def availableLetterReplacer(available, lettersGuessed):
             available = available.replace(letter, '')
             return available
 
+
+def insertLetter(guesses, lettersGuessed, secretWord):
+    print "You have" ,guesses, "guesses left"
+    getAvailableLetters()
+    letter = raw_input('Please guess a letter: ')
+    return letter
+
 def hangman(secretWord):
-    guesses = numberOfGuesses()
+    guesses = 8
     lettersGuessed = []
     print 'Welcome to the game, Hangam!'
     print 'I am thinking of a word that is', len(secretWord), ' letters long.'
     print '-------------'
     while  isWordGuessed(secretWord, lettersGuessed) == False and guesses >0:
-        print 'You have ', guesses, 'guesses left.'
 
         available = getAvailableLetters()
         availableLetterReplacer(available, lettersGuessed)
 
         print 'Available letters', available
-        letter = raw_input('Please guess a letter: ')
+
+        letter = insertLetter(guesses,lettersGuessed, secretWord )
         if letter in lettersGuessed:
 
             wordReplacer = lettersCurrentWord(lettersGuessed)
