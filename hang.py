@@ -29,14 +29,6 @@ def fileExtentionTxt():
     print "Not a txt file"
     return False
 
-
-def isalphanumeric(letter):
-    if(len(letter) == 1):
-        if(letter.isalpha()):
-            return True
-    return False
-
-
 def loadWords():
     """
     Depending on the size of the word list, this function may
@@ -99,7 +91,7 @@ def insertLetter(guesses, lettersGuessed, secretWord):
 
 def isLetterValid(available):
     for letter in available:
-        if(letter in string.ascii_lowercase and len(letter) == 1):
+        if(letter in string.ascii_lowercase and len(letter) == 1 and letter.isalpha()):
             return True
             print "Invalid letter"
             return False
@@ -117,7 +109,6 @@ def hangman(secretWord):
         if(isLetterValid(available)):
             availableLetterReplacer(available, lettersGuessed)
 
-
         letter = insertLetter(guesses,lettersGuessed, secretWord )
         if letter in lettersGuessed:
 
@@ -134,9 +125,7 @@ def hangman(secretWord):
             guesses -=1
             lettersGuessed.append(letter)
 
-
             wordReplacer = lettersCurrentWord(lettersGuessed)
-
 
             print 'Oops! That letter is not in my word: ',  wordReplacer
         print '------------'
