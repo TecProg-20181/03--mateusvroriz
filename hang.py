@@ -94,8 +94,7 @@ def availableLetterReplacer(available, lettersGuessed):
 def insertLetter(guesses, lettersGuessed, secretWord):
     print "You have" ,guesses, "guesses left"
     getAvailableLetters()
-    letter = raw_input('Please guess a letter: ')
-    letter.lower()
+    letter = raw_input('Please guess a letter: ').lower()
     return letter
 
 def isLetterValid(available):
