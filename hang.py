@@ -2,6 +2,7 @@ import random
 import string
 from sets import Set
 import os
+from types import *
 WORDLIST_FILENAME = "palavras.txt"
 
 
@@ -94,8 +95,15 @@ def insertLetter(guesses, lettersGuessed, secretWord):
     print "You have" ,guesses, "guesses left"
     getAvailableLetters()
     letter = raw_input('Please guess a letter: ')
+    letter.lower()
     return letter
 
+def isLetterValid(available):
+    for letter in available:
+        if(letter in string.ascii_lowercase and len(letter) == 1):
+            return True
+            print "Invalid letter"
+            return False
 
 
 def hangman(secretWord):
@@ -107,7 +115,8 @@ def hangman(secretWord):
     while  isWordGuessed(secretWord, lettersGuessed) == False and guesses >0:
 
         available = getAvailableLetters()
-        availableLetterReplacer(available, lettersGuessed)
+        if(isLetterValid(available)):
+            availableLetterReplacer(available, lettersGuessed)
 
 
         letter = insertLetter(guesses,lettersGuessed, secretWord )
