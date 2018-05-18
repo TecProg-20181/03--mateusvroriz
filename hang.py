@@ -1,9 +1,14 @@
 import random
 import string
 from sets import Set
+import os
 WORDLIST_FILENAME = "palavras.txt"
 
+
 def numberDiff(numberoftrys):
+    if(fileExtentionTxt() == False):
+        exit()
+    else:
      word = loadWords()
 
      diffLetters = Set(list(word))
@@ -16,6 +21,12 @@ def numberDiff(numberoftrys):
         print "  ", len(diffLetters), " different letters."
 
      return word
+
+def fileExtentionTxt():
+    if WORDLIST_FILENAME.endswith(".txt"):
+        return True
+    print "Not a txt file"
+    return False
 
 
 def isalphanumeric(letter):
@@ -56,6 +67,7 @@ def isWordGuessed(secretWord, lettersGuessed):
 def getAvailableLetters():
     import string
     available = string.ascii_lowercase
+    print 'Available letters', available
     return available
 
 def numberOfGuesses():
@@ -84,6 +96,8 @@ def insertLetter(guesses, lettersGuessed, secretWord):
     letter = raw_input('Please guess a letter: ')
     return letter
 
+
+
 def hangman(secretWord):
     guesses = 8
     lettersGuessed = []
@@ -95,7 +109,6 @@ def hangman(secretWord):
         available = getAvailableLetters()
         availableLetterReplacer(available, lettersGuessed)
 
-        print 'Available letters', available
 
         letter = insertLetter(guesses,lettersGuessed, secretWord )
         if letter in lettersGuessed:
